@@ -32,23 +32,31 @@ getInts path = do
 
 day2a = do
   commands <- getCommands "/Users/marksinke/IdeaProjects/aoc2021/data/day2input.txt"
-  return (applyCommands commands)
-
-day2b = "LATER"
-
-applyCommands:: [(String, Int)] -> (Int, Int)
-applyCommands commands =
   let initialPos = (0, 0)
-  in foldl applyCommand (initialPos) commands
+  return (foldl applyCommandA (initialPos) commands)
 
-applyCommand :: (Int, Int) -> (String, Int) -> (Int, Int)
-applyCommand (hor, depth) command =
+day2b = do
+  commands <- getCommands "/Users/marksinke/IdeaProjects/aoc2021/data/day2input.txt"
+  let initialPos = (0, 0, 0)
+  return (foldl applyCommandB (initialPos) commands)
+
+applyCommandA :: (Int, Int) -> (String, Int) -> (Int, Int)
+applyCommandA (hor, depth) command =
   let (verb, num) = command in
   case verb of
     "forward" -> (hor + num, depth)
     "backward" -> (hor - num, depth)
     "up" -> (hor, depth - num)
     "down" -> (hor, depth + num)
+
+applyCommandB :: (Int, Int, Int) -> (String, Int) -> (Int, Int, Int)
+applyCommandB (hor, depth, aim) command =
+  let (verb, num) = command in
+  case verb of
+    "forward" -> (hor + num, depth + aim * num, aim)
+    "backward" -> (hor - num, depth + aim * num, aim)
+    "up" -> (hor, depth, aim - num)
+    "down" -> (hor, depth, aim + num)
 
 getCommands :: FilePath -> IO [(String, Int)]
 getCommands path = do

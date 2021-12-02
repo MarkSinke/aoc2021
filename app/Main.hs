@@ -6,5 +6,6 @@ main :: IO ()
 main = do
   r1 <- day2a
   print r1
-  -- r2 <- day2b
-  -- print r2
+  r2 <- day2b
+  print r2
+  print (case r2 of (hor, depth, aim) -> hor * depth)
