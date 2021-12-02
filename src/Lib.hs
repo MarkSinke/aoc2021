@@ -17,9 +17,8 @@ day1b = do
 sum3 (a, b, c) =
   a + b + c
 
-increasing :: (Int, Int ) -> Bool
-increasing tuple =
-  (fst tuple) < (snd tuple)
+increasing (a, b) =
+  a < b
 
 getInts :: FilePath -> IO [Int]
 getInts path = do
