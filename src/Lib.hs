@@ -1,6 +1,8 @@
 module Lib
-    ( day1a, day1b
+    ( day1a, day1b, day2a, day2b
     ) where
+
+-- DAY1
 
 day1a = do
   nums <- getInts "/Users/marksinke/IdeaProjects/aoc2021/data/day1input.txt"
@@ -25,3 +27,37 @@ getInts path = do
   contents <- readFile path
   let someFloats = map read  . lines $ contents
   return someFloats
+
+-- DAY2
+
+day2a = do
+  commands <- getCommands "/Users/marksinke/IdeaProjects/aoc2021/data/day2input.txt"
+  return (applyCommands commands)
+
+day2b = "LATER"
+
+applyCommands:: [(String, Int)] -> (Int, Int)
+applyCommands commands =
+  let initialPos = (0, 0)
+  in foldl applyCommand (initialPos) commands
+
+applyCommand :: (Int, Int) -> (String, Int) -> (Int, Int)
+applyCommand (hor, depth) command =
+  let (verb, num) = command in
+  case verb of
+    "forward" -> (hor + num, depth)
+    "backward" -> (hor - num, depth)
+    "up" -> (hor, depth - num)
+    "down" -> (hor, depth + num)
+
+getCommands :: FilePath -> IO [(String, Int)]
+getCommands path = do
+    contents <- readFile path
+    let myLines = lines contents
+    let someFloats = map readCommand myLines
+    return someFloats
+
+readCommand :: String -> (String, Int)
+readCommand str =
+  let myWords = words str
+  in (myWords !! 0, read (myWords !! 1))
