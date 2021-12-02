@@ -62,10 +62,9 @@ getCommands :: FilePath -> IO [(String, Int)]
 getCommands path = do
     contents <- readFile path
     let myLines = lines contents
-    let someFloats = map readCommand myLines
-    return someFloats
+    return (map readCommand myLines)
 
 readCommand :: String -> (String, Int)
 readCommand str =
-  let myWords = words str
-  in (myWords !! 0, read (myWords !! 1))
+  let command : numStr : _ = words str
+  in (command, read numStr)
