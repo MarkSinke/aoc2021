@@ -90,23 +90,44 @@ day3a = do
   let leastCommonDigits = map invertBit mostCommonDigits
   return (createBinaryNumber mostCommonDigits, createBinaryNumber leastCommonDigits)
 
+day3b :: IO (Int, Int)
+day3b = do
+  inputs <- getBinaryStrings "/Users/marksinke/IdeaProjects/aoc2021/data/day3input.txt"
+  let oxygenResult = reduceBasedOnFirstDigit getMostCommonDigit [] inputs
+  let co2Result = reduceBasedOnFirstDigit getLeastCommonDigit [] inputs
+  let oxygen = createBinaryNumber(fst oxygenResult)
+  let co2 = createBinaryNumber(fst co2Result)
+  return (oxygen, co2)
+
+reduceBasedOnFirstDigit :: ([Int] -> Int) -> [Int] -> [[Int]] -> ([Int], [[Int]])
+reduceBasedOnFirstDigit selector result inputs =
+  if null (head inputs) then (result, inputs)
+  else
+    let filterDigit = selector (firstBits inputs)
+        filtered = filter (\x -> head x == filterDigit) inputs
+        tails = map tail filtered
+        newResult = result ++ [filterDigit]
+    in reduceBasedOnFirstDigit selector newResult tails
+
+firstBits :: [[Int]] -> [Int]
+firstBits = map head
+
 invertBit :: Int -> Int
 invertBit x = 1 - x
 
 getMostCommonDigit :: [Int] -> Int
 getMostCommonDigit xs =
   let (zeros, ones) = countZerosAndOnes xs
-  in if zeros > ones then 0 else 1
+  in if zeros > 0 && (ones == 0 || zeros > ones) then 0 else 1
+
+getLeastCommonDigit :: [Int] -> Int
+getLeastCommonDigit xs =
+  let (zeros, ones) = countZerosAndOnes xs
+  in if zeros > 0 && (ones == 0 || zeros <= ones) then 0 else 1
 
 countZerosAndOnes :: [Int] -> (Int, Int)
 countZerosAndOnes =
   foldr (\x (zeros, ones) -> if x == 0 then (zeros + 1, ones) else (zeros, ones + 1)) (0, 0)
-
-
-day3b :: IO Int
-day3b = do
-  inputs <- getBinaryStrings "/Users/marksinke/IdeaProjects/aoc2021/data/day3input.txt"
-  return (createBinaryNumber (head inputs))
 
 getBinaryStrings :: FilePath -> IO [[Int]]
 getBinaryStrings path = do

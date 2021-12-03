@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc10a058-6cbb-4416-b433-a502f15ba487" name="Changes" comment="adding day3a algorithms">
-      <change afterPath="$PROJECT_DIR$/data/day3input.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Main.hs" beforeDir="false" afterPath="$PROJECT_DIR$/app/Main.hs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lib.hs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lib.hs" afterDir="false" />
@@ -46,7 +45,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638456054848</updated>
-      <workItem from="1638456057881" duration="9175000" />
+      <workItem from="1638456057881" duration="15826000" />
     </task>
     <task id="LOCAL-00001" summary="transform project to a real Haskell setup in IDEA">
       <created>1638461477841</created>
@@ -76,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638526090393</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="adding day3a algorithms">
+      <created>1638529998526</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638529998526</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

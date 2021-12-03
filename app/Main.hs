@@ -1,6 +1,6 @@
 module Main where
 
-import Lib (day1a, day1b, day2a, day2b, day3a)
+import Lib (day1a, day1b, day2a, day2b, day3a, day3b)
 
 main :: IO ()
 main = do
@@ -38,8 +38,8 @@ printDay3 = do
   print r1
   putStr "Answer: "
   print (case r1 of (gamma, epsilon) -> gamma * epsilon)
---  r2 <- day3b
---  putStrLn "Day 2 b"
---  print r2
---  putStr "Answer: "
---  print (case r2 of (hor, depth, _) -> hor * depth)
+  r2 <- day3b
+  putStrLn "Day 3 b"
+  print r2
+  putStr "Answer: "
+  print (case r2 of (oxygen, co2) -> oxygen * co2)
