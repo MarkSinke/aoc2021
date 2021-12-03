@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc10a058-6cbb-4416-b433-a502f15ba487" name="Changes" comment="fix Haskell warnings for day1 and day2" />
+    <list default="true" id="cc10a058-6cbb-4416-b433-a502f15ba487" name="Changes" comment="update hoogle stuff">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +35,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638456054848</updated>
-      <workItem from="1638456057881" duration="2967000" />
+      <workItem from="1638456057881" duration="5263000" />
     </task>
     <task id="LOCAL-00001" summary="transform project to a real Haskell setup in IDEA">
       <created>1638461477841</created>
@@ -49,7 +51,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638461514627</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update hoogle stuff">
+      <created>1638461634044</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638461634045</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -69,6 +78,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="transform project to a real Haskell setup in IDEA" />
     <MESSAGE value="fix Haskell warnings for day1 and day2" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix Haskell warnings for day1 and day2" />
+    <MESSAGE value="update hoogle stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="update hoogle stuff" />
   </component>
 </project>
