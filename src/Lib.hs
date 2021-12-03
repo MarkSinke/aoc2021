@@ -1,6 +1,8 @@
 module Lib
-    ( day1a, day1b, day2a, day2b
+    ( day1a, day1b, day2a, day2b, day3a, day3b
     ) where
+import Data.Char (digitToInt)
+import Data.List (transpose)
 
 -- DAY1
 
@@ -77,3 +79,45 @@ readCommand str =
   case words str of
      command : numStr : _ -> (command, read numStr)
      _ -> error "failed to parse input"
+
+-- DAY3
+
+day3a :: IO (Int, Int)
+day3a = do
+  inputs <- getBinaryStrings "/Users/marksinke/IdeaProjects/aoc2021/data/day3input.txt"
+  let inputsPerBit = transpose inputs
+  let mostCommonDigits = map getMostCommonDigit inputsPerBit
+  let leastCommonDigits = map invertBit mostCommonDigits
+  return (createBinaryNumber mostCommonDigits, createBinaryNumber leastCommonDigits)
+
+invertBit :: Int -> Int
+invertBit x = 1 - x
+
+getMostCommonDigit :: [Int] -> Int
+getMostCommonDigit xs =
+  let (zeros, ones) = countZerosAndOnes xs
+  in if zeros > ones then 0 else 1
+
+countZerosAndOnes :: [Int] -> (Int, Int)
+countZerosAndOnes =
+  foldr (\x (zeros, ones) -> if x == 0 then (zeros + 1, ones) else (zeros, ones + 1)) (0, 0)
+
+
+day3b :: IO Int
+day3b = do
+  inputs <- getBinaryStrings "/Users/marksinke/IdeaProjects/aoc2021/data/day3input.txt"
+  return (createBinaryNumber (head inputs))
+
+getBinaryStrings :: FilePath -> IO [[Int]]
+getBinaryStrings path = do
+    contents <- readFile path
+    let myLines = lines contents
+    let ints = map getBinaryString myLines
+    return ints
+
+getBinaryString :: [Char] -> [Int]
+getBinaryString = map digitToInt
+
+createBinaryNumber :: [Int] -> Int
+createBinaryNumber =
+  foldl (\a x -> x + a * 2) 0
