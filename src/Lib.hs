@@ -1,5 +1,5 @@
 module Lib
-    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a, day5b
+    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a, day5b, day6a, day6b
     ) where
 import Data.Char (digitToInt)
 import Data.List (transpose)
@@ -303,3 +303,45 @@ readCoord :: String -> (Int, Int)
 readCoord str =
   let coords = split ',' str
   in (readInt(head coords), readInt(head(tail coords)))
+
+-- DAY6
+day6a :: IO Int
+day6a = do
+  fish0 <- readLanternFish "/Users/marksinke/IdeaProjects/aoc2021/data/day6input.txt"
+  let fish80 = runFish 80 fish0
+  return (length fish80)
+
+day6b :: IO Integer
+day6b = do
+  fish0 <- readLanternFish "/Users/marksinke/IdeaProjects/aoc2021/data/day6input.txt"
+  let fishStates = map (countFish fish0) [0..8]
+  let fish256 = runFish2 256 fishStates
+  return (sum fish256)
+
+countFish :: [Int] -> Int -> Integer
+countFish fish n = toInteger (length (filter (== n) fish))
+
+runFish2 :: Int -> [Integer] -> [Integer]
+runFish2 daysToGo fish =
+  let newFish8 = head fish
+      newFish6 = fish !! 7 + newFish8
+      newFish7 = fish !! 8
+  in if daysToGo == 0 then fish else runFish2 (daysToGo - 1) (take 6 (tail fish) ++ [newFish6, newFish7, newFish8])
+
+runFish :: Int -> [Int] -> [Int]
+runFish daysToGo fish =
+  if daysToGo == 0 then fish else runFish (daysToGo - 1) (fish >>= nextFishState)
+
+nextFishState :: Int -> [Int]
+nextFishState f = if f == 0 then [6, 8] else [f -1]
+
+readLanternFish :: FilePath -> IO [Int]
+readLanternFish path = do
+    contents <- readFile path
+    let myLines = lines contents
+    return (splitFish (head myLines))
+
+splitFish :: String -> [Int]
+splitFish str =
+  let xs = split ',' str
+  in map readInt xs
