@@ -1,13 +1,14 @@
 module Main where
 
-import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b)
+import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a)
 
 main :: IO ()
 main = do
-  printDay1
-  printDay2
-  printDay3
-  printDay4
+--  printDay1
+--  printDay2
+--  printDay3
+--  printDay4
+  printDay5
 
 printDay1 :: IO ()
 printDay1 = do
@@ -65,3 +66,9 @@ printDay4 = do
 
 numOrZeroRow :: Int -> Bool -> Int
 numOrZeroRow x b = if not b then x else 0
+
+printDay5 :: IO ()
+printDay5 = do
+  putStrLn "Day 5 a"
+  r1 <- day5a
+  print r1

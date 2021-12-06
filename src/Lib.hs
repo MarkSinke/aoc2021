@@ -1,8 +1,9 @@
 module Lib
-    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b
+    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a
     ) where
 import Data.Char (digitToInt)
 import Data.List (transpose)
+import qualified Data.Map as Map
 
 -- DAY1
 
@@ -165,7 +166,7 @@ getLosingBoardX nums boards strikes =
   let num = head nums
       newStrikes = zipWith (strikeBoardDigit num) boards strikes
       newBoards = filter (not . isWinBoard) (zip boards newStrikes)
-  in if null newBoards then (num, head boards, head newStrikes) 
+  in if null newBoards then (num, head boards, head newStrikes)
     else let (recBoards, recStrikes) = unzip newBoards in getLosingBoardX (tail nums) recBoards recStrikes
 
 getWinningBoard :: [Int] -> [[[Int]]] -> (Int, [[Int]], [[Bool]])
@@ -235,3 +236,53 @@ chunks _ [] = []
 chunks n xs =
     let (ys, zs) = splitAt n xs
     in  ys : chunks n zs
+
+-- DAY5
+
+type VentMap = Map.Map (Int, Int) Int
+
+day5a :: IO Int
+day5a = do
+  vents <- readVents "/Users/marksinke/IdeaProjects/aoc2021/data/day5input.txt"
+  let emptyMap = Map.empty :: VentMap
+  let ventMap = foldr applyVent emptyMap vents
+  putStrLn ("ventMap " ++ show ventMap)
+  return (length (filter hasVentRisk (Map.toList ventMap)))
+
+hasVentRisk ::( (Int, Int), Int) -> Bool
+hasVentRisk ((_, _), v) = v >= 2
+
+applyVent :: ((Int, Int), (Int, Int)) -> VentMap -> VentMap
+applyVent ((x1, y1), (x2, y2)) ventMap
+  | x1 == x2 = applyVentV x1 y1 y2 ventMap
+  | y1 == y2 = applyVentH x1 x2 y1 ventMap
+  | otherwise = ventMap
+
+applyVentH :: Int -> Int -> Int -> VentMap -> VentMap
+applyVentH x1 x2 y ventMap =
+  foldr applyVentPoint ventMap (zip [(min x1 x2)..(max x1 x2)] (repeat y))
+
+applyVentV :: Int -> Int -> Int -> VentMap -> VentMap
+applyVentV x y1 y2 ventMap =
+  foldr applyVentPoint ventMap (zip (repeat x) [(min y1 y2)..(max y1 y2)])
+
+applyVentPoint :: (Int, Int) -> VentMap -> VentMap
+applyVentPoint coords ventMap =
+  let prev = Map.findWithDefault 0 coords ventMap
+  in Map.insert coords (prev + 1) ventMap
+
+readVents :: FilePath -> IO [((Int, Int), (Int, Int))]
+readVents path = do
+    contents <- readFile path
+    let myLines = lines contents
+    return (map toVent myLines)
+
+toVent :: String -> ((Int, Int), (Int, Int))
+toVent str =
+  let tokens = words str
+  in (readCoord(head tokens), readCoord(tokens !! 2))
+
+readCoord :: String -> (Int, Int)
+readCoord str =
+  let coords = split ',' str
+  in (readInt(head coords), readInt(head(tail coords)))

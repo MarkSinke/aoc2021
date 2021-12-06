@@ -32,6 +32,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , containers
   default-language: Haskell2010
 
 executable aoc2021-exe
@@ -44,6 +45,7 @@ executable aoc2021-exe
   build-depends:
       aoc2021
     , base >=4.7 && <5
+    , containers
   default-language: Haskell2010
 
 test-suite aoc2021-test
@@ -57,4 +59,5 @@ test-suite aoc2021-test
   build-depends:
       aoc2021
     , base >=4.7 && <5
+    , containers
   default-language: Haskell2010
