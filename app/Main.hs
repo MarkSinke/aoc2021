@@ -1,6 +1,6 @@
 module Main where
 
-import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a)
+import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b)
 
 main :: IO ()
 main = do
@@ -54,6 +54,14 @@ printDay4 = do
   let total = sum(zipWith numOrZeroRow (concat board) (concat strikes))
   putStr "Answer: "
   print (total * num)
+
+  putStrLn "Day 4 b"
+  r2 <- day4b
+  print r2
+  let (num2, board2, strikes2) = r2
+  let total2 = sum(zipWith numOrZeroRow (concat board2) (concat strikes2))
+  putStr "Answer: "
+  print (total2 * num2)
 
 numOrZeroRow :: Int -> Bool -> Int
 numOrZeroRow x b = if not b then x else 0

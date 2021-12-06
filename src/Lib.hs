@@ -1,9 +1,8 @@
 module Lib
-    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a
+    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b
     ) where
 import Data.Char (digitToInt)
 import Data.List (transpose)
-import Debug.Trace (trace)
 
 -- DAY1
 
@@ -150,6 +149,24 @@ day4a :: IO (Int, [[Int]], [[Bool]])
 day4a = do
   (randomNumbers, boards) <- getRandomListAndBoards "/Users/marksinke/IdeaProjects/aoc2021/data/day4input.txt"
   return (getWinningBoard randomNumbers boards)
+
+day4b :: IO (Int, [[Int]], [[Bool]])
+day4b = do
+  (randomNumbers, boards) <- getRandomListAndBoards "/Users/marksinke/IdeaProjects/aoc2021/data/day4input.txt"
+  return (getLosingBoard randomNumbers boards)
+
+getLosingBoard :: [Int] -> [[[Int]]] -> (Int, [[Int]], [[Bool]])
+getLosingBoard nums boards =
+  let noStrikes =  replicate 5 (replicate 5 False)
+  in getLosingBoardX nums boards (repeat noStrikes)
+
+getLosingBoardX :: [Int] -> [[[Int]]] -> [[[Bool]]] -> (Int, [[Int]], [[Bool]])
+getLosingBoardX nums boards strikes =
+  let num = head nums
+      newStrikes = zipWith (strikeBoardDigit num) boards strikes
+      newBoards = filter (not . isWinBoard) (zip boards newStrikes)
+  in if null newBoards then (num, head boards, head newStrikes) 
+    else let (recBoards, recStrikes) = unzip newBoards in getLosingBoardX (tail nums) recBoards recStrikes
 
 getWinningBoard :: [Int] -> [[[Int]]] -> (Int, [[Int]], [[Bool]])
 getWinningBoard nums boards =
