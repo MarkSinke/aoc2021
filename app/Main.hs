@@ -50,3 +50,10 @@ printDay4 = do
   putStrLn "Day 4 a"
   r1 <- day4a
   print r1
+  let (num, board, strikes) = r1
+  let total = sum(zipWith numOrZeroRow (concat board) (concat strikes))
+  putStr "Answer: "
+  print (total * num)
+
+numOrZeroRow :: Int -> Bool -> Int
+numOrZeroRow x b = if not b then x else 0

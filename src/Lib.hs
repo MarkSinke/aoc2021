@@ -146,30 +146,26 @@ createBinaryNumber =
 
 -- DAY 4
 
-day4a :: IO (Int, Int)
+day4a :: IO (Int, [[Int]], [[Bool]])
 day4a = do
   (randomNumbers, boards) <- getRandomListAndBoards "/Users/marksinke/IdeaProjects/aoc2021/data/day4input.txt"
-  let (num, board, strikes) = getWinningBoard randomNumbers boards
-  print num
-  print board
-  print strikes
-  return (0,0)
+  return (getWinningBoard randomNumbers boards)
 
 getWinningBoard :: [Int] -> [[[Int]]] -> (Int, [[Int]], [[Bool]])
 getWinningBoard nums boards =
-  let noStrikes =  repeat (replicate 5 (replicate 5 False))
-  in getWinningBoardX nums boards noStrikes
-  
+  let noStrikes =  replicate 5 (replicate 5 False)
+  in getWinningBoardX nums boards (repeat noStrikes)
+
 getWinningBoardX :: [Int] -> [[[Int]]] -> [[[Bool]]] -> (Int, [[Int]], [[Bool]])
 getWinningBoardX nums boards strikes =
   let num = head nums
       newStrikes = zipWith (strikeBoardDigit num) boards strikes
       winBoards = filter isWinBoard (zip boards newStrikes)
-  in trace("num = " ++ show num ++ " strikes" ++ show strikes) (if null winBoards then getWinningBoardX (tail nums) boards newStrikes else (num, fst(head winBoards), snd(head winBoards)))
+  in if not (null winBoards) then (num, fst (head winBoards), snd (head winBoards)) else getWinningBoardX (tail nums) boards newStrikes
 
 strikeBoardDigit :: Int -> [[Int]] -> [[Bool]] -> [[Bool]]
-strikeBoardDigit num boards strikes =
-  trace("try striking " ++ show num ++ "in boards " ++ show boards) (zipWith (strikeRowDigit num) boards strikes)
+strikeBoardDigit num =
+  zipWith (strikeRowDigit num)
 
 strikeRowDigit :: Int -> [Int] -> [Bool] -> [Bool]
 strikeRowDigit num =
@@ -183,7 +179,7 @@ isWinBoard :: ([[Int]], [[Bool]]) -> Bool
 isWinBoard (_, strikes) =
   let winRows = filter isStrikeRow strikes
       winCols = filter isStrikeRow (transpose strikes)
-  in not (null winRows || null winCols)
+  in not (null winRows && null winCols)
 
 isStrikeRow :: [Bool] -> Bool
 isStrikeRow = and
