@@ -1,6 +1,6 @@
 module Main where
 
-import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a)
+import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a, day5b)
 
 main :: IO ()
 main = do
@@ -72,3 +72,7 @@ printDay5 = do
   putStrLn "Day 5 a"
   r1 <- day5a
   print r1
+  
+  putStrLn "Day 5 b"
+  r2 <- day5b
+  print r2 

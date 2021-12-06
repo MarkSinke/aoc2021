@@ -1,5 +1,5 @@
 module Lib
-    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a
+    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a, day5b
     ) where
 import Data.Char (digitToInt)
 import Data.List (transpose)
@@ -244,9 +244,13 @@ type VentMap = Map.Map (Int, Int) Int
 day5a :: IO Int
 day5a = do
   vents <- readVents "/Users/marksinke/IdeaProjects/aoc2021/data/day5input.txt"
-  let emptyMap = Map.empty :: VentMap
-  let ventMap = foldr applyVent emptyMap vents
-  putStrLn ("ventMap " ++ show ventMap)
+  let ventMap = foldr applyVentHV Map.empty vents
+  return (length (filter hasVentRisk (Map.toList ventMap)))
+
+day5b :: IO Int
+day5b = do
+  vents <- readVents "/Users/marksinke/IdeaProjects/aoc2021/data/day5input.txt"
+  let ventMap = foldr applyVent Map.empty vents
   return (length (filter hasVentRisk (Map.toList ventMap)))
 
 hasVentRisk ::( (Int, Int), Int) -> Bool
@@ -254,6 +258,19 @@ hasVentRisk ((_, _), v) = v >= 2
 
 applyVent :: ((Int, Int), (Int, Int)) -> VentMap -> VentMap
 applyVent ((x1, y1), (x2, y2)) ventMap
+  | x1 == x2 = applyVentV x1 y1 y2 ventMap
+  | y1 == y2 = applyVentH x1 x2 y1 ventMap
+  | abs(x1 - x2) == abs(y1 - y2) = applyVentDiag x1 y1 x2 y2 ventMap
+  | otherwise = error "nondiag"
+
+applyVentDiag :: Int -> Int -> Int -> Int -> VentMap -> VentMap
+applyVentDiag x1 y1 x2 y2 ventMap =
+  let dirX = signum (x2 - x1)
+      dirY = signum (y2 - y1)
+  in foldr applyVentPoint ventMap (zip [x1, x1 + dirX..x2] [y1, y1 + dirY..y2])
+
+applyVentHV :: ((Int, Int), (Int, Int)) -> VentMap -> VentMap
+applyVentHV ((x1, y1), (x2, y2)) ventMap
   | x1 == x2 = applyVentV x1 y1 y2 ventMap
   | y1 == y2 = applyVentH x1 x2 y1 ventMap
   | otherwise = ventMap
