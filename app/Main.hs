@@ -1,12 +1,13 @@
 module Main where
 
-import Lib (day1a, day1b, day2a, day2b, day3a, day3b)
+import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a)
 
 main :: IO ()
 main = do
   printDay1
   printDay2
   printDay3
+  printDay4
 
 printDay1 :: IO ()
 printDay1 = do
@@ -43,3 +44,9 @@ printDay3 = do
   print r2
   putStr "Answer: "
   print (case r2 of (oxygen, co2) -> oxygen * co2)
+
+printDay4 :: IO ()
+printDay4 = do
+  putStrLn "Day 4 a"
+  r1 <- day4a
+  print r1

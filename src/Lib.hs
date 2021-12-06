@@ -1,8 +1,9 @@
 module Lib
-    ( day1a, day1b, day2a, day2b, day3a, day3b
+    ( day1a, day1b, day2a, day2b, day3a, day3b, day4a
     ) where
 import Data.Char (digitToInt)
 import Data.List (transpose)
+import Debug.Trace (trace)
 
 -- DAY1
 
@@ -142,3 +143,82 @@ getBinaryString = map digitToInt
 createBinaryNumber :: [Int] -> Int
 createBinaryNumber =
   foldl (\a x -> x + a * 2) 0
+
+-- DAY 4
+
+day4a :: IO (Int, Int)
+day4a = do
+  (randomNumbers, boards) <- getRandomListAndBoards "/Users/marksinke/IdeaProjects/aoc2021/data/day4input.txt"
+  let (num, board, strikes) = getWinningBoard randomNumbers boards
+  print num
+  print board
+  print strikes
+  return (0,0)
+
+getWinningBoard :: [Int] -> [[[Int]]] -> (Int, [[Int]], [[Bool]])
+getWinningBoard nums boards =
+  let noStrikes =  repeat (replicate 5 (replicate 5 False))
+  in getWinningBoardX nums boards noStrikes
+  
+getWinningBoardX :: [Int] -> [[[Int]]] -> [[[Bool]]] -> (Int, [[Int]], [[Bool]])
+getWinningBoardX nums boards strikes =
+  let num = head nums
+      newStrikes = zipWith (strikeBoardDigit num) boards strikes
+      winBoards = filter isWinBoard (zip boards newStrikes)
+  in trace("num = " ++ show num ++ " strikes" ++ show strikes) (if null winBoards then getWinningBoardX (tail nums) boards newStrikes else (num, fst(head winBoards), snd(head winBoards)))
+
+strikeBoardDigit :: Int -> [[Int]] -> [[Bool]] -> [[Bool]]
+strikeBoardDigit num boards strikes =
+  trace("try striking " ++ show num ++ "in boards " ++ show boards) (zipWith (strikeRowDigit num) boards strikes)
+
+strikeRowDigit :: Int -> [Int] -> [Bool] -> [Bool]
+strikeRowDigit num =
+  zipWith (strikeDigit num)
+
+strikeDigit :: Int -> Int -> Bool -> Bool
+strikeDigit num boardDigit strike =
+  strike || (num == boardDigit)
+
+isWinBoard :: ([[Int]], [[Bool]]) -> Bool
+isWinBoard (_, strikes) =
+  let winRows = filter isStrikeRow strikes
+      winCols = filter isStrikeRow (transpose strikes)
+  in not (null winRows || null winCols)
+
+isStrikeRow :: [Bool] -> Bool
+isStrikeRow = and
+
+getRandomListAndBoards :: FilePath -> IO ([Int], [[[Int]]])
+getRandomListAndBoards path = do
+    contents <- readFile path
+    let myLines = lines contents
+    let randomNumbers = readRandomInts (head myLines)
+    let boardsStr = tail (tail myLines)
+    let boards = map toBoard (chunks 6 boardsStr)
+    return (randomNumbers, boards)
+
+readRandomInts :: String -> [Int]
+readRandomInts str = map readInt (split ',' str)
+
+toBoard :: [String] -> [[Int]]
+toBoard xs =
+  take 5 (map toBoardLine xs)
+
+toBoardLine :: String -> [Int]
+toBoardLine str = map readInt (words str)
+
+readInt :: String -> Int
+readInt = read
+
+split :: Char -> String -> [String]
+split _ "" = []
+split delimiter str =
+    let (start, rest) = break (== delimiter) str
+        (_, remain) = span (== delimiter) rest
+     in start : split delimiter remain
+
+chunks :: Int -> [a] -> [[a]]
+chunks _ [] = []
+chunks n xs =
+    let (ys, zs) = splitAt n xs
+    in  ys : chunks n zs
