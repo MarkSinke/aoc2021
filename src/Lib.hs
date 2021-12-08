@@ -1,6 +1,8 @@
 module Lib
     ( day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a, day5b, day6a, day6b
     ) where
+
+import Common
 import Data.Char (digitToInt)
 import Data.List (transpose)
 import qualified Data.Map as Map
@@ -220,22 +222,6 @@ toBoard xs =
 
 toBoardLine :: String -> [Int]
 toBoardLine str = map readInt (words str)
-
-readInt :: String -> Int
-readInt = read
-
-split :: Char -> String -> [String]
-split _ "" = []
-split delimiter str =
-    let (start, rest) = break (== delimiter) str
-        (_, remain) = span (== delimiter) rest
-     in start : split delimiter remain
-
-chunks :: Int -> [a] -> [[a]]
-chunks _ [] = []
-chunks n xs =
-    let (ys, zs) = splitAt n xs
-    in  ys : chunks n zs
 
 -- DAY5
 
