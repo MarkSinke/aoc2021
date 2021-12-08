@@ -11,6 +11,7 @@ main = do
 --  printDay4
 --  printDay5
   printDay6
+  printDay7
 
 printDay1 :: IO ()
 printDay1 = do

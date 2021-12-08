@@ -7,7 +7,7 @@ day7a :: IO Int
 day7a = do
   nums <- readInts "/Users/marksinke/IdeaProjects/aoc2021/data/day7input.txt"
   let maxPos = maximum nums
-  let costs = mao (computeDelta nums) [0..maxPos]
+  let costs = map (computeDelta nums) [0..maxPos]
   return (minimum costs)
 
 computeDelta :: [Int] -> Int -> Int
