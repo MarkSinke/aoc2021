@@ -2,6 +2,7 @@ module Main where
 
 import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a, day5b, day6a, day6b)
 import Day7 (day7a, day7b)
+import Day8 (day8a)
 
 main :: IO ()
 main = do
@@ -10,15 +11,16 @@ main = do
 --  printDay3
 --  printDay4
 --  printDay5
-  printDay6
-  printDay7
+--  printDay6
+--  printDay7
+  printDay8
 
 printDay1 :: IO ()
 printDay1 = do
   putStrLn "Day 1 a"
   r1 <- day1a
   print r1
-  
+
   putStrLn "Day 1 b"
   r2 <- day1b
   print r2
@@ -30,7 +32,7 @@ printDay2 = do
   print r1
   putStr "Answer: "
   print (case r1 of (hor, depth) -> hor * depth)
-  
+
   r2 <- day2b
   putStrLn "Day 2 b"
   print r2
@@ -44,7 +46,7 @@ printDay3 = do
   print r1
   putStr "Answer: "
   print (case r1 of (gamma, epsilon) -> gamma * epsilon)
-  
+
   r2 <- day3b
   putStrLn "Day 3 b"
   print r2
@@ -101,3 +103,15 @@ printDay7 = do
   putStrLn "Day 7 b"
   r2 <- day7b
   print r2
+
+printDay8 :: IO ()
+printDay8 = do
+  putStrLn "Day 8 a"
+  r1 <- day8a
+  print r1
+
+--  putStrLn "Day 8 b"
+--  r2 <- day8b
+--  print r2
+
+
