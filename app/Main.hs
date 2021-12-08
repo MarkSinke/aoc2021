@@ -16,11 +16,11 @@ main = do
 printDay1 :: IO ()
 printDay1 = do
   putStrLn "Day 1 a"
-  putStr "Answer: "
   r1 <- day1a
   print r1
-  r2 <- day1b
+  
   putStrLn "Day 1 b"
+  r2 <- day1b
   print r2
 
 printDay2 :: IO ()
@@ -30,6 +30,7 @@ printDay2 = do
   print r1
   putStr "Answer: "
   print (case r1 of (hor, depth) -> hor * depth)
+  
   r2 <- day2b
   putStrLn "Day 2 b"
   print r2
@@ -43,6 +44,7 @@ printDay3 = do
   print r1
   putStr "Answer: "
   print (case r1 of (gamma, epsilon) -> gamma * epsilon)
+  
   r2 <- day3b
   putStrLn "Day 3 b"
   print r2
@@ -96,6 +98,6 @@ printDay7 = do
   r1 <- day7a
   print r1
 
---  putStrLn "Day 6 b"
---  r2 <- day6b
---  print r2
+  putStrLn "Day 7 b"
+  r2 <- day7b
+  print r2
