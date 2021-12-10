@@ -16,5 +16,11 @@
     <orderEntry type="library" name="containers-0.6.5.1" level="project" />
     <orderEntry type="library" name="array-0.5.4.0" level="project" />
     <orderEntry type="library" name="deepseq-1.4.4.0" level="project" />
+    <orderEntry type="library" name="matrix-0.3.6.1" level="project" />
+    <orderEntry type="library" name="loop-0.3.0" level="project" />
+    <orderEntry type="library" name="primitive-0.7.3.0" level="project" />
+    <orderEntry type="library" name="semigroups-0.19.2" level="project" />
+    <orderEntry type="library" name="vector-0.12.3.1" level="project" />
+    <orderEntry type="library" name="transformers-0.5.6.2" level="project" />
   </component>
 </module>
