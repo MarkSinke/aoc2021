@@ -4,6 +4,7 @@ import Lib (day1a, day1b, day2a, day2b, day3a, day3b, day4a, day4b, day5a, day5b
 import Day7 (day7a, day7b)
 import Day8 (day8a, day8b)
 import Day9 (day9a, day9b)
+import Day10 (day10a, day10b)
 
 main :: IO ()
 main = do
@@ -14,8 +15,9 @@ main = do
 --  printDay5
 --  printDay6
 --  printDay7
-  printDay8
-  printDay9
+--  printDay8
+--  printDay9
+  printDay10
 
 printDay1 :: IO ()
 printDay1 = do
@@ -125,5 +127,16 @@ printDay9 = do
   putStrLn "Day 9 b"
   r2 <- day9b
   print r2
+
+printDay10 :: IO ()
+printDay10 = do
+  putStrLn "Day 10 a"
+  r1 <- day10a
+  print r1
+
+  putStrLn "Day 10 b"
+  r2 <- day10b
+  print r2
+
 
 
