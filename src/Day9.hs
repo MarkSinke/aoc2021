@@ -21,11 +21,16 @@ day9b = do
   let heightMatrix = Matrix.fromLists heights
   let riskMatrix = Matrix.fromLists riskProfile
   let coordsMatrix = Matrix.mapPos toRiskCoord riskMatrix
-  let coords = map fromJust (filter isJust (Matrix.toList coordsMatrix))
+  let coords = catMaybes (Matrix.toList coordsMatrix)
   let coloredMaps = map (colorMap heightMatrix (-1)) coords
-  let sizes = map (foldl flattenColor 0) (map Matrix.toList coloredMaps)
+  let sizes = map getColoredSize coloredMaps
   let sortedSizes = reverse (sort sizes)
   return (product (take 3 sortedSizes))
+
+getColoredSize :: Matrix.Matrix Int -> Int
+getColoredSize matrix =
+  let list = Matrix.toList matrix
+  in foldl flattenColor 0 list
 
 flattenColor :: Int -> Int -> Int
 flattenColor a x = a + if x == -1 then 1 else 0
@@ -48,13 +53,12 @@ validSteps num matrix coord =
   filter (isValidCell num matrix) (map (doStep coord) allDirections)
 
 doStep :: (Int, Int) -> (Int, Int) -> (Int, Int)
-doStep coord dir = (fst coord + fst dir, snd coord + snd dir)
+doStep (x, y) (dx, dy) = (x + dx, y + dy)
 
 isValidCell :: Int -> Matrix.Matrix Int -> (Int, Int) ->Bool
 isValidCell num matrix (r1, c1) =
-  if c1 == 0 || c1 > Matrix.ncols matrix || r1 == 0 || r1 > Matrix.nrows matrix then False
-  else let el = Matrix.getElem r1 c1 matrix
-  in el /= 9 && el /= num
+  not (c1 == 0 ||  c1 > Matrix.ncols matrix || r1 == 0 || r1 > Matrix.nrows matrix || el == 9 || el == num)
+  where el = Matrix.getElem r1 c1 matrix
 
 toRiskCoord :: (Int, Int) -> Int -> Maybe (Int, Int)
 toRiskCoord (r, c) val =
@@ -75,17 +79,17 @@ getRiskProfile heights =
   in profile
 
 getRisk :: Int -> Int -> Int
-getRisk a b = (min a b) + 1
+getRisk a b = min a b + 1
 
 createRiskLine :: [Int] -> [Int]
-createRiskLine xs = createRiskRec 10 xs
+createRiskLine = createRiskRec 10
 
 createRiskRec :: Int -> [Int] -> [Int]
 createRiskRec prev row =
   let h = head row
       t = tail row
   in if null t then [if prev > h then h else -1]
-  else (getMin prev h (head t)) : createRiskRec h t
+  else getMin prev h (head t) : createRiskRec h t
 
 
 
@@ -93,8 +97,8 @@ getMin :: Int -> Int -> Int -> Int
 getMin x0 x1 x2 = if x0 > x1 && x1 < x2 then x1 else -1
 
 readHeightLine :: String -> [Int]
-readHeightLine str =
-  map readCharInt str
+readHeightLine =
+  map readCharInt
 
 readCharInt :: Char -> Int
 readCharInt ch = read (ch : "")
