@@ -10,7 +10,7 @@ import Data.Char (isUpper)
 
 day12a :: IO Int
 day12a = do
-  edgeList <- readEdgeList "/Users/marksinke/IdeaProjects/aoc2021/data/day12inputSample3.txt"
+  edgeList <- readEdgeList "/Users/marksinke/IdeaProjects/aoc2021/data/day12input.txt"
   let undirectedEdgeList = sort (edgeList ++ map swap edgeList)
   let nodes = map toNode (groupBy fstEq undirectedEdgeList)
   let (graph, _, vertexFromKey) = graphFromEdges nodes
