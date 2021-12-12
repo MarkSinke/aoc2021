@@ -27,6 +27,7 @@ library
   exposed-modules:
       Common
       Day10
+      Day11
       Day7
       Day8
       Day9

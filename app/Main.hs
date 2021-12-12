@@ -5,6 +5,7 @@ import Day7 (day7a, day7b)
 import Day8 (day8a, day8b)
 import Day9 (day9a, day9b)
 import Day10 (day10a, day10b)
+import Day11 (day11a, day11b)
 
 main :: IO ()
 main = do
@@ -18,6 +19,7 @@ main = do
 --  printDay8
 --  printDay9
   printDay10
+  printDay11
 
 printDay1 :: IO ()
 printDay1 = do
@@ -137,6 +139,18 @@ printDay10 = do
   putStrLn "Day 10 b"
   r2 <- day10b
   print r2
+
+printDay :: String -> IO Int -> IO Int -> IO ()
+printDay name fa fb = do
+  putStrLn (name ++ "a")
+  r1 <- fa
+  print r1
+
+  putStrLn (name ++ "b")
+  r2 <- fb
+  print r2
+
+printDay11 = printDay "Day 11" day11a day11b
 
 
 
