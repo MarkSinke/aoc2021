@@ -13,11 +13,11 @@ main = do
 --  printDay2
 --  printDay3
 --  printDay4
---  printDay5
---  printDay6
---  printDay7
---  printDay8
---  printDay9
+  printDay5
+  printDay6
+  printDay7
+  printDay8
+  printDay9
   printDay10
   printDay11
 
@@ -80,67 +80,7 @@ printDay4 = do
 numOrZeroRow :: Int -> Bool -> Int
 numOrZeroRow x b = if not b then x else 0
 
-printDay5 :: IO ()
-printDay5 = do
-  putStrLn "Day 5 a"
-  r1 <- day5a
-  print r1
-
-  putStrLn "Day 5 b"
-  r2 <- day5b
-  print r2
-
-printDay6 :: IO ()
-printDay6 = do
-  putStrLn "Day 6 a"
-  r1 <- day6a
-  print r1
-
-  putStrLn "Day 6 b"
-  r2 <- day6b
-  print r2
-
-printDay7 :: IO ()
-printDay7 = do
-  putStrLn "Day 7 a"
-  r1 <- day7a
-  print r1
-
-  putStrLn "Day 7 b"
-  r2 <- day7b
-  print r2
-
-printDay8 :: IO ()
-printDay8 = do
-  putStrLn "Day 8 a"
-  r1 <- day8a
-  print r1
-
-  putStrLn "Day 8 b"
-  r2 <- day8b
-  print r2
-
-printDay9 :: IO ()
-printDay9 = do
-  putStrLn "Day 9 a"
-  r1 <- day9a
-  print r1
-
-  putStrLn "Day 9 b"
-  r2 <- day9b
-  print r2
-
-printDay10 :: IO ()
-printDay10 = do
-  putStrLn "Day 10 a"
-  r1 <- day10a
-  print r1
-
-  putStrLn "Day 10 b"
-  r2 <- day10b
-  print r2
-
-printDay :: String -> IO Int -> IO Int -> IO ()
+printDay :: (Num a, Show a, Num b, Show b) => String -> IO a -> IO b -> IO ()
 printDay name fa fb = do
   putStrLn (name ++ "a")
   r1 <- fa
@@ -150,6 +90,12 @@ printDay name fa fb = do
   r2 <- fb
   print r2
 
+printDay5 = printDay "Day 5" day5a day5b
+printDay6 = printDay "Day 6" day6a day6b
+printDay7 = printDay "Day 7" day7a day7b
+printDay8 = printDay "Day 8" day8a day8b
+printDay9 = printDay "Day 9" day9a day9b
+printDay10 = printDay "Day 10" day10a day10b
 printDay11 = printDay "Day 11" day11a day11b
 
 
