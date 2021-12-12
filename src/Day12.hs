@@ -10,14 +10,13 @@ import Data.Char (isUpper)
 
 day12a :: IO Int
 day12a = do
-  edgeList <- readEdgeList "/Users/marksinke/IdeaProjects/aoc2021/data/day12inputSample1.txt"
+  edgeList <- readEdgeList "/Users/marksinke/IdeaProjects/aoc2021/data/day12inputSample3.txt"
   let undirectedEdgeList = sort (edgeList ++ map swap edgeList)
   let nodes = map toNode (groupBy fstEq undirectedEdgeList)
   let (graph, _, vertexFromKey) = graphFromEdges nodes
   let multiVisitVertices = mapMaybe vertexFromKey (filter isMultiVisit (map toNodeName nodes))
-  print graph
-  print (findPaths graph multiVisitVertices vertexFromKey)
-  return 0
+  let paths = findPaths graph multiVisitVertices vertexFromKey
+  return (length paths)
 
 toNodeName :: (Int, String, [String]) -> String
 toNodeName (_, name, _) = name
