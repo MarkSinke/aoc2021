@@ -6,6 +6,7 @@ import Day8 (day8a, day8b)
 import Day9 (day9a, day9b)
 import Day10 (day10a, day10b)
 import Day11 (day11a, day11b)
+import Day12 (day12a, day12b)
 
 main :: IO ()
 main = do
@@ -13,13 +14,14 @@ main = do
 --  printDay2
 --  printDay3
 --  printDay4
-  printDay5
-  printDay6
-  printDay7
-  printDay8
-  printDay9
-  printDay10
-  printDay11
+--  printDay5
+--  printDay6
+--  printDay7
+--  printDay8
+--  printDay9
+--  printDay10
+--  printDay11
+  printDay12
 
 printDay1 :: IO ()
 printDay1 = do
@@ -80,7 +82,7 @@ printDay4 = do
 numOrZeroRow :: Int -> Bool -> Int
 numOrZeroRow x b = if not b then x else 0
 
-printDay :: (Num a, Show a, Num b, Show b) => String -> IO a -> IO b -> IO ()
+printDay :: (Show a, Show b) => String -> IO a -> IO b -> IO ()
 printDay name fa fb = do
   putStrLn (name ++ "a")
   r1 <- fa
@@ -97,6 +99,7 @@ printDay8 = printDay "Day 8" day8a day8b
 printDay9 = printDay "Day 9" day9a day9b
 printDay10 = printDay "Day 10" day10a day10b
 printDay11 = printDay "Day 11" day11a day11b
+printDay12 = printDay "Day 12" day12a day12b
 
 
 
