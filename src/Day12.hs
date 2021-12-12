@@ -15,7 +15,7 @@ day12a = do
   let nodes = map toNode (groupBy fstEq undirectedEdgeList)
   let (graph, _, vertexFromKey) = graphFromEdges nodes
   let multiVisitVertices = mapMaybe vertexFromKey (filter isMultiVisit (map toNodeName nodes))
-  let paths = findPaths graph multiVisitVertices vertexFromKey
+  let paths = findPathsA graph multiVisitVertices vertexFromKey
   return (length paths)
 
 toNodeName :: (Int, String, [String]) -> String
@@ -24,29 +24,29 @@ toNodeName (_, name, _) = name
 isMultiVisit :: String -> Bool
 isMultiVisit str = isUpper (head str)
 
-findPaths :: Graph -> [Vertex] -> (String -> Maybe Vertex) -> [[Vertex]]
-findPaths graph multiVisitVertices vertexFromKey =
+findPathsA :: Graph -> [Vertex] -> (String -> Maybe Vertex) -> [[Vertex]]
+findPathsA graph multiVisitVertices vertexFromKey =
   let start = fromJust (vertexFromKey "start")
       end = fromJust (vertexFromKey "end")
-  in findPathsReq graph end multiVisitVertices [[start]] []
+  in findPathsReqA graph end multiVisitVertices [[start]] []
 
-findPathsReq :: Graph -> Vertex -> [Vertex] -> [[Vertex]] -> [[Vertex]] -> [[Vertex]]
-findPathsReq graph end multiVisitVertices pathsToExplore paths =
+findPathsReqA :: Graph -> Vertex -> [Vertex] -> [[Vertex]] -> [[Vertex]] -> [[Vertex]]
+findPathsReqA graph end multiVisitVertices pathsToExplore paths =
   if null pathsToExplore then paths
   else
     let curPath = head pathsToExplore
         rest = tail pathsToExplore
         cur = head curPath
-        recurse = findPathsReq graph end multiVisitVertices
+        recurse = findPathsReqA graph end multiVisitVertices
   in
     if cur == end then recurse rest (curPath : paths)
     else
-      let nextNodes = filter (isAvailableNode multiVisitVertices curPath) (graph ! cur)
+      let nextNodes = filter (isAvailableNodeA multiVisitVertices curPath) (graph ! cur)
       in if null nextNodes then recurse rest paths
         else recurse (rest ++ map (: curPath) nextNodes) paths
 
-isAvailableNode :: [Vertex] -> [Vertex] -> Vertex -> Bool
-isAvailableNode multiVisitVertices vertexPath vertex =
+isAvailableNodeA :: [Vertex] -> [Vertex] -> Vertex -> Bool
+isAvailableNodeA multiVisitVertices vertexPath vertex =
   vertex `elem` multiVisitVertices || vertex `notElem` vertexPath
 
 fstEq :: (String, String) -> (String, String) -> Bool
