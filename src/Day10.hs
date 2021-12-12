@@ -1,14 +1,14 @@
 module Day10 (day10a, day10b)
 where
 
-import Data.Maybe (catMaybes)
-
+import Data.Maybe (catMaybes, isNothing, mapMaybe)
+import Data.List (sort)
 
 day10a :: IO Int
 day10a = do
   navs <- readNavigation "/Users/marksinke/IdeaProjects/aoc2021/data/day10input.txt"
-  let corrupted = map getCorruptChar navs
-  return (foldl computeScore 0 (catMaybes corrupted))
+  let parsed = map getCorruptChar navs
+  return (foldl computeScore 0 (mapMaybe snd parsed))
 
 computeScore :: Int -> Char -> Int
 computeScore a x = a + case x of
@@ -19,18 +19,35 @@ computeScore a x = a + case x of
 
 day10b :: IO Int
 day10b = do
-  heights <- readNavigation "/Users/marksinke/IdeaProjects/aoc2021/data/day9input.txt"
-  return 0
+  navs <- readNavigation "/Users/marksinke/IdeaProjects/aoc2021/data/day10input.txt"
+  let parsed = map getCorruptChar navs
+  let incomplete = map fst (filter (isNothing . snd) parsed)
+  let scores = map toScore incomplete
+  let sorted = sort scores
+  let middleIndex = div (length sorted) 2
+  return (sorted !! middleIndex)
+
+toScore :: String -> Int
+toScore = foldl scoreChar 0
+
+scoreChar :: Int -> Char -> Int
+scoreChar s c =
+  s * 5 + (case c of
+    '(' -> 1
+    '[' -> 2
+    '{' -> 3
+    '<' -> 4
+    _ -> 0)
 
 readNavigation :: FilePath -> IO [String]
 readNavigation path = do
   contents <- readFile path
   return (lines contents)
 
-getCorruptChar :: String -> Maybe Char
+getCorruptChar :: String -> ([Char], Maybe Char)
 getCorruptChar = getCorruptCharRec []
 
-getCorruptCharRec :: [Char] -> [Char] -> Maybe Char
+getCorruptCharRec :: [Char] -> [Char] -> ([Char], Maybe Char)
 getCorruptCharRec stack ('(' : xs) = getCorruptCharRec ('(' : stack) xs
 getCorruptCharRec stack ('{' : xs) = getCorruptCharRec ('{' : stack) xs
 getCorruptCharRec stack ('[' : xs) = getCorruptCharRec ('[' : stack) xs
@@ -39,6 +56,5 @@ getCorruptCharRec ('(' : stack) (')' : xs) = getCorruptCharRec stack xs
 getCorruptCharRec ('{' : stack) ('}' : xs) = getCorruptCharRec stack xs
 getCorruptCharRec ('[' : stack) (']' : xs) = getCorruptCharRec stack xs
 getCorruptCharRec ('<' : stack) ('>' : xs) = getCorruptCharRec stack xs
-getCorruptCharRec (top : stack) [] = Nothing -- incomplete
-getCorruptCharRec _ [] = Nothing -- complete and correct
-getCorruptCharRec _ (x : xs) = Just x -- corrupt and x is the offending character
+getCorruptCharRec stack (x : xs) = (stack, Just x) -- corrupt and x is the offending character
+getCorruptCharRec stack [] = (stack, Nothing) -- incomplete, or correct (correct iff stack is empty)
