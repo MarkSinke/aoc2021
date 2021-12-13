@@ -1,4 +1,4 @@
-module Common (readInt, split, chunks)
+module Common (readInt, split, chunks, toCoord)
 where
 
 readInt :: String -> Int
@@ -16,4 +16,9 @@ chunks _ [] = []
 chunks n xs =
     let (ys, zs) = splitAt n xs
     in  ys : chunks n zs
+
+toCoord :: String -> (Int, Int)
+toCoord str =
+  let coords = split ',' str
+  in (readInt(head coords), readInt(head(tail coords)))
 

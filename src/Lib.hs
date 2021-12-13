@@ -283,12 +283,7 @@ readVents path = do
 toVent :: String -> ((Int, Int), (Int, Int))
 toVent str =
   let tokens = words str
-  in (readCoord(head tokens), readCoord(tokens !! 2))
-
-readCoord :: String -> (Int, Int)
-readCoord str =
-  let coords = split ',' str
-  in (readInt(head coords), readInt(head(tail coords)))
+  in (toCoord(head tokens), toCoord(tokens !! 2))
 
 -- DAY6
 day6a :: IO Int

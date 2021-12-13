@@ -7,6 +7,7 @@ import Day9 (day9a, day9b)
 import Day10 (day10a, day10b)
 import Day11 (day11a, day11b)
 import Day12 (day12a, day12b)
+import Day13 (day13a, day13b)
 
 main :: IO ()
 main = do
@@ -22,16 +23,10 @@ main = do
 --  printDay10
 --  printDay11
   printDay12
+  printDay13
 
 printDay1 :: IO ()
-printDay1 = do
-  putStrLn "Day 1 a"
-  r1 <- day1a
-  print r1
-
-  putStrLn "Day 1 b"
-  r2 <- day1b
-  print r2
+printDay1 = printDay "Day 1" day1a day1b
 
 printDay2 :: IO ()
 printDay2 = do
@@ -92,14 +87,24 @@ printDay name fa fb = do
   r2 <- fb
   print r2
 
+printDay5 :: IO ()
 printDay5 = printDay "Day 5" day5a day5b
+printDay6 :: IO ()
 printDay6 = printDay "Day 6" day6a day6b
+printDay7 :: IO ()
 printDay7 = printDay "Day 7" day7a day7b
+printDay8 :: IO ()
 printDay8 = printDay "Day 8" day8a day8b
+printDay9 :: IO ()
 printDay9 = printDay "Day 9" day9a day9b
+printDay10 :: IO ()
 printDay10 = printDay "Day 10" day10a day10b
+printDay11 :: IO ()
 printDay11 = printDay "Day 11" day11a day11b
+printDay12 :: IO ()
 printDay12 = printDay "Day 12" day12a day12b
+printDay13 :: IO ()
+printDay13 = printDay "Day 13" day13a day13b
 
 
 
