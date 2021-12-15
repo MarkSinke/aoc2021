@@ -24,6 +24,7 @@ dependencies:
 - containers
 - matrix
 - array
+- search-algorithms
 
 library:
   source-dirs: src

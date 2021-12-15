@@ -31,6 +31,7 @@ library
       Day12
       Day13
       Day14
+      Day15
       Day7
       Day8
       Day9
@@ -44,6 +45,7 @@ library
     , base >=4.7 && <5
     , containers
     , matrix
+    , search-algorithms
   default-language: Haskell2010
 
 executable aoc2021-exe
@@ -59,6 +61,7 @@ executable aoc2021-exe
     , base >=4.7 && <5
     , containers
     , matrix
+    , search-algorithms
   default-language: Haskell2010
 
 test-suite aoc2021-test
@@ -75,4 +78,5 @@ test-suite aoc2021-test
     , base >=4.7 && <5
     , containers
     , matrix
+    , search-algorithms
   default-language: Haskell2010
