@@ -1,11 +1,9 @@
 module Day9 (day9a, day9b)
 where
 
-import Common
 import Data.List (transpose, sort)
 import Data.Maybe
 import qualified Data.Matrix as Matrix
-import Debug.Trace (trace)
 
 day9a :: IO Int
 day9a = do
@@ -35,6 +33,7 @@ getColoredSize matrix =
 flattenColor :: Int -> Int -> Int
 flattenColor a x = a + if x == -1 then 1 else 0
 
+allDirections :: [(Int, Int)]
 allDirections = [(-1, 0), (0, -1), (1, 0), (0, 1)]
 
 colorMap :: Matrix.Matrix Int -> Int -> (Int, Int) -> Matrix.Matrix Int

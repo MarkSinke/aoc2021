@@ -3,8 +3,6 @@ where
 
 import qualified Data.Matrix as Matrix
 import Data.Char (digitToInt)
-import Debug.Trace (trace)
-import Common
 
 day11a :: IO Int
 day11a = do

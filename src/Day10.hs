@@ -1,7 +1,7 @@
 module Day10 (day10a, day10b)
 where
 
-import Data.Maybe (catMaybes, isNothing, mapMaybe)
+import Data.Maybe (isNothing, mapMaybe)
 import Data.List (sort)
 
 day10a :: IO Int
@@ -16,6 +16,7 @@ computeScore a x = a + case x of
   ']' -> 57
   '}' -> 1197
   '>' -> 25137
+  _ -> error "bad syntax"
 
 day10b :: IO Int
 day10b = do
@@ -56,5 +57,5 @@ getCorruptCharRec ('(' : stack) (')' : xs) = getCorruptCharRec stack xs
 getCorruptCharRec ('{' : stack) ('}' : xs) = getCorruptCharRec stack xs
 getCorruptCharRec ('[' : stack) (']' : xs) = getCorruptCharRec stack xs
 getCorruptCharRec ('<' : stack) ('>' : xs) = getCorruptCharRec stack xs
-getCorruptCharRec stack (x : xs) = (stack, Just x) -- corrupt and x is the offending character
+getCorruptCharRec stack (x : _) = (stack, Just x) -- corrupt and x is the offending character
 getCorruptCharRec stack [] = (stack, Nothing) -- incomplete, or correct (correct iff stack is empty)

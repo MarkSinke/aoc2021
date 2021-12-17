@@ -2,10 +2,9 @@ module Day8 (day8a, day8b)
 where
 
 import Common
-import Data.Maybe (fromJust, fromMaybe)
+import Data.Maybe (fromJust)
 import Data.Foldable (find)
-import Data.List (isInfixOf, findIndex, sort, elemIndex)
-import Debug.Trace (trace)
+import Data.List (sort, elemIndex)
 
 day8a :: IO Int
 day8a = do
