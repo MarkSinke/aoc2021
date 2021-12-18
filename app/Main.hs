@@ -12,6 +12,7 @@ import Day14 (day14a, day14b)
 import Day15 (day15a, day15b)
 import Day16 (day16a, day16b)
 import Day17 (day17a, day17b)
+import Day18 (day18a, day18b)
 
 main :: IO ()
 main = do
@@ -31,7 +32,8 @@ main = do
 --  printDay14
 --  printDay15
 --  printDay16
-  printDay17
+--  printDay17
+  printDay18
 
 printDay1 :: IO ()
 printDay1 = printDay "Day 1" day1a day1b
@@ -121,5 +123,7 @@ printDay16 :: IO ()
 printDay16 = printDay "Day 16" day16a day16b
 printDay17 :: IO ()
 printDay17 = printDay "Day 17" day17a day17b
+printDay18 :: IO ()
+printDay18 = printDay "Day 18" day18a day18b
 
 
