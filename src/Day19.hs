@@ -15,17 +15,28 @@ day19a :: IO Int
 day19a = do
   scannerCoords <- readScannerCoords "/Users/marksinke/IdeaProjects/aoc2021/data/day19input.txt"
 
-  let result = length (findCoords (head scannerCoords) (tail scannerCoords))
-  return result
+  let (coords, _) = findCoords (head scannerCoords, []) (tail scannerCoords)
+  return (length coords)
 
-findCoords :: [Coord] -> [[Coord]] -> [Coord]
-findCoords acc (coords:scanners) =
+day19b :: IO Int
+day19b = do
+  scannerCoords <- readScannerCoords "/Users/marksinke/IdeaProjects/aoc2021/data/day19input.txt"
+
+  let (_, dists) = findCoords (head scannerCoords, []) (tail scannerCoords)
+  let dists0 = Coord 0 0 0 : dists
+
+  let distances = concatMap (\x -> map (manhattanDistance x) dists0) dists0
+
+  return (maximum distances)
+
+findCoords :: ([Coord], [Coord]) -> [[Coord]] -> ([Coord], [Coord])
+findCoords (acc, dists) (coords:scanners) =
   let result = matchAny acc coords transforms
   in
     if isJust result then
       let (transform, dist) = fromJust result
-      in findCoords (combineCoords acc transform dist coords) scanners
-    else findCoords acc (scanners ++ [coords])
+      in findCoords (combineCoords acc transform dist coords, dist : dists) scanners
+    else findCoords (acc, dists) (scanners ++ [coords])
 
 findCoords acc [] = acc
 
@@ -59,9 +70,9 @@ minus :: Coord -> Coord -> Coord
 minus (Coord x1 y1 z1) (Coord x2 y2 z2) =
   Coord (x1 - x2) (y1 - y2) (z1 - z2)
 
-day19b :: IO Int
-day19b = do
-  return 0
+manhattanDistance :: Coord -> Coord -> Int
+manhattanDistance (Coord x1 y1 z1) (Coord x2 y2 z2) =
+  abs (x1 - x2) + abs (y1 - y2) + abs (z1 - z2)
 
 readScannerCoords :: FilePath -> IO [[Coord]]
 readScannerCoords path = do
