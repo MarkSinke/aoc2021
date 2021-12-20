@@ -25,6 +25,7 @@ dependencies:
 - matrix
 - array
 - search-algorithms
+- split
 
 library:
   source-dirs: src
