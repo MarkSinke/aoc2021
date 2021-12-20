@@ -26,6 +26,7 @@ dependencies:
 - array
 - search-algorithms
 - split
+- vector
 
 library:
   source-dirs: src

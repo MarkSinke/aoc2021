@@ -36,6 +36,7 @@ library
       Day17
       Day18
       Day19
+      Day20
       Day7
       Day8
       Day9
@@ -51,6 +52,7 @@ library
     , matrix
     , search-algorithms
     , split
+    , vector
   default-language: Haskell2010
 
 executable aoc2021-exe
@@ -68,6 +70,7 @@ executable aoc2021-exe
     , matrix
     , search-algorithms
     , split
+    , vector
   default-language: Haskell2010
 
 test-suite aoc2021-test
@@ -86,4 +89,5 @@ test-suite aoc2021-test
     , matrix
     , search-algorithms
     , split
+    , vector
   default-language: Haskell2010
