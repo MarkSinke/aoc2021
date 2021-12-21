@@ -54,8 +54,9 @@ countWinsUntil :: Int -> Int -> GameState -> (Int, Int)
 countWinsUntil limit factor state@(GameState _ p1s _ p2s _ _)
   | p1s >= limit = (factor, 0)
   | p2s >= limit = (0, factor)
-  | otherwise = let results = map (nextCounts limit factor state) distFactors
-      in (sum (map fst results), sum (map snd results))
+  | otherwise = 
+    let results = map (nextCounts limit factor state) distFactors
+    in (sum (map fst results), sum (map snd results))
 
 nextCounts :: Int -> Int -> GameState -> (Int, Int) -> (Int, Int)
 nextCounts limit factor state (dist, count) =
