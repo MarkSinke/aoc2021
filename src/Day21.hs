@@ -1,5 +1,8 @@
 module Day21 (day21a, day21b) where
 
+import Data.List (group, sort)
+
+
 --data GameState = GameState {turns :: Int, player1Score :: Int, player1Pos :: Int, player2Score :: Int, player2Pos :: Int, whoseTurn :: Int}
 data GameState = GameState Int Int Int Int Int Int deriving (Show)
 
@@ -40,4 +43,28 @@ advance (GameState turns player1Score player1Pos player2Score player2Pos whoseTu
 
 day21b :: IO Int
 day21b = do
-  return 0
+  let state = createInitialState 9 3
+--  let state = createInitialState 4 8
+
+  let result = countWinsUntil 21 1 state
+  let m = uncurry max result
+  return m
+
+countWinsUntil :: Int -> Int -> GameState -> (Int, Int)
+countWinsUntil limit factor state@(GameState _ p1s _ p2s _ _)
+  | p1s >= limit = (factor, 0)
+  | p2s >= limit = (0, factor)
+  | otherwise = let results = map (nextCounts limit factor state) distFactors
+      in (sum (map fst results), sum (map snd results))
+
+nextCounts :: Int -> Int -> GameState -> (Int, Int) -> (Int, Int)
+nextCounts limit factor state (dist, count) =
+  let next = advance state dist
+  in countWinsUntil limit (factor * count) next
+
+-- list of sums of die throws and how often they occur
+distFactors :: [(Int, Int)]
+distFactors =
+  let allSums = concatMap (\a -> concatMap (\b -> map (\c -> a + b + c) [1..3]) [1..3]) [1..3]
+  in map (\x -> (head x, length x)) (group (sort allSums))
+
