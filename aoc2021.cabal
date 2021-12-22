@@ -38,6 +38,7 @@ library
       Day19
       Day20
       Day21
+      Day22
       Day7
       Day8
       Day9
@@ -50,7 +51,9 @@ library
       array
     , base >=4.7 && <5
     , containers
+    , ilist
     , matrix
+    , regex-compat
     , search-algorithms
     , split
     , vector
@@ -68,7 +71,9 @@ executable aoc2021-exe
     , array
     , base >=4.7 && <5
     , containers
+    , ilist
     , matrix
+    , regex-compat
     , search-algorithms
     , split
     , vector
@@ -87,7 +92,9 @@ test-suite aoc2021-test
     , array
     , base >=4.7 && <5
     , containers
+    , ilist
     , matrix
+    , regex-compat
     , search-algorithms
     , split
     , vector

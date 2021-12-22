@@ -27,6 +27,8 @@ dependencies:
 - search-algorithms
 - split
 - vector
+- regex-compat
+- ilist
 
 library:
   source-dirs: src
