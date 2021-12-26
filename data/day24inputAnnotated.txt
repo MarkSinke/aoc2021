@@ -1,0 +1,264 @@
+inp w - w = i1, x = 0, y = 0, z = 0
+mul x 0 - x = 0
+add x z - x = 0
+mod x 26 - x = 0
+div z 1 - z = 0
+add x 12 - x = 12
+eql x w - x = 0
+eql x 0 - x = 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = 25
+add y 1 - y = 26
+mul z y - z = 0
+mul y 0 - y = 0
+add y w - y = i1
+add y 15 - y = i1 + 15
+mul y x - y = i1 + 15
+add z y - z = i1 + 15
+inp w - w = i2
+mul x 0 - x = 0
+add x z - x = i1 + 15
+mod x 26 - x = i1 + 15
+div z 1 - z = i1 + 15
+add x 14 - x = i1 + 29
+eql x w - x = 0
+eql x 0 - x = 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = 25
+add y 1 - y = 26
+mul z y - z = 26 * (i1 + 15)
+mul y 0 - y = 0
+add y w - y = i2
+add y 12 - y = i2 + 12
+mul y x - y = i2 + 12
+add z y - z = 26 * (i1 + 15) + (i2 + 12)
+inp w - w = i3
+mul x 0 - x = 0
+add x z - x = 26 * (i1 + 15) + (i2 + 12)
+mod x 26 - x = i2 + 12
+div z 1 - z = 26 * (i1 + 15) + (i2 + 12)
+add x 11 - x = i2 + 33
+eql x w - x = 0
+eql x 0 - x = 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = 25
+add y 1 - y = 26
+mul z y - z = 26 * (26 * (i1 + 15) + (i2 + 12))
+mul y 0 - y = 0
+add y w - y = i3
+add y 15 - y = i3 + 15
+mul y x - y = i3 + 15
+add z y - z = 26 * (26 * (i1 + 15) + (i2 + 12)) + (i3 + 15)
+inp w - w = i4
+mul x 0 - x = 0
+add x z - x = 26 * (26 * (i1 + 15) + (i2 + 12)) + (i3 + 15)
+mod x 26 - x = (i3 + 15)
+div z 26 - z = 26 * (i1 + 15) + (i2 + 12)
+add x -9 = i3 + 6
+eql x w - if i3 + 6 == i4 then 1 else 0
+eql x 0 - if i3 + 6 == i4 then 0 else 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = if i3 + 6 == i4 then 25 else 0
+add y 1 - y = if i3 + 6 == i4 then 26 else 1
+mul z y - z = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) else 26 * (i1 + 15) + (i2 + 12)
+mul y 0 - y = 0
+add y w - y = i4
+add y 12 - y = i4 + 12
+mul y x - y = if i3 + 6 == i4 then 0 else i4 + 12
+add z y = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + i4 + 12 else 26 * (i1 + 15) + (i2 + 12)
+inp w - w = i5
+mul x 0 - x = 0
+add x z - x = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + i4 + 12 else 26 * (i1 + 15) + (i2 + 12)
+mod x 26 - x = if i3 + 6 == i4 then i4 + 12 else 0
+div z 26 - z = if i3 + 6 == i4 then 26 * (i1 + 15) + (i2 + 12) else (i1 + 15)
+add x -7 - x = if i3 + 6 == i4 then i4 + 5 else -7
+eql x w - x = 0 // if i3 + 6 == i4 and i4 + 5 == i5 then 1 else 0 (and i5 is max 9 so it cannot be 11 higher than i3)
+eql x 0 - x = 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = 25
+add y 1 - y = 26
+mul z y - z = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) else 26 * (i1 + 15)
+mul y 0 - y = 0
+add y w - y = i5
+add y 15 - y = i5 + 15
+mul y x - y = i5 + 15
+add z y - z = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15)
+inp w - w = i6
+mul x 0 - x = 0
+add x z - x = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15)
+mod x 26 - x = if i3 + 6 == i4 then 26 * (i1 + 15) + (i2 + 12) else (i1 + 15)
+div z 1 - z = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15)
+add x 11 - x = if i3 + 6 == i4 then 26 * (i1 + 15) + (i2 + 33) else (i1 + 26)
+eql x w - x = 0
+eql x 0 - x = 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = 25
+add y 1 - y = 26
+mul z y - z = if i3 + 6 == i4 then 26 * (26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15)) else 26 * (26 * (i1 + 15) + (i5 + 15))
+mul y 0 - y = 0
+add y w - y = i6
+add y 2 - y = i6 + 2
+mul y x - y = i6 + 2
+add z y - z = if i3 + 6 == i4 then 26 * (26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15)) + (i6 + 2) else 26 * (26 * (i1 + 15) + (i5 + 15)) + (i6 + 2)
+inp w - w = i7
+mul x 0 - x = 0
+add x z - x = if i3 + 6 == i4 then 26 * (26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15)) + (i6 + 2) else 26 * (26 * (i1 + 15) + (i5 + 15)) + (i6 + 2)
+mod x 26 - z = i6 + 2 // if i3 + 6 == i4 then (i6 + 2) else (i6 + 2)
+div z 26 - z = if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15)
+add x -1 - x = i6 + 1
+eql x w - x = if i6 + 1 == i7 then 1 else 0
+eql x 0 - x = if i6 + 1 == i7 then 0 else 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = if i6 + 1 == i7 then 0 else 25
+add y 1 - y = if i6 + 1 == i7 then 1 else 26
+mul z y - z = if i6 + 1 == i7 then
+                   if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15)
+              else
+                   if i3 + 6 == i4 then 26 * (26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15)) else 26 * (26 * (i1 + 15) + (i5 + 15))
+mul y 0 - y = 0
+add y w - y = i7
+add y 11 - y = i7 + 11
+mul y x - y = if i6 + 1 == i7 then 0 else i7 + 11
+add z y - z = if i6 + 1 == i7 then
+                     if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15)
+                else
+                     if i3 + 6 == i4 then 26 * (26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15)) else 26 * (26 * (i1 + 15) + (i5 + 15)) + i7 + 11
+inp w - w = i8
+mul x 0 - x = 0
+add x z - x = if i6 + 1 == i7 then
+                   if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15)
+              else
+                   if i3 + 6 == i4 then 26 * (26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15)) else 26 * (26 * (i1 + 15) + (i5 + 15)) + i7 + 11
+mod x 26 - x = if i6 + 1 == i7 then i5 + 15 else i7 + 11
+div z 26 - z = if i6 + 1 == i7 then
+                                  if i3 + 6 == i4 then 26 * (i1 + 15) + (i2 + 12) else (i1 + 15)
+                             else
+                                  if i3 + 6 == i4 then 26 * (26 * (i1 + 15) + (i2 + 12)) + (i5 + 15) else 26 * (i1 + 15) + (i5 + 15) ===> call this Z0
+add x -16 = if i6 + 1 == i7 then i5 - 1 else i7 - 5
+eql x w = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then 1 else 0
+eql x 0 = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then 0 else 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then 0 else 25
+add y 1 - y = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then 1 else 26
+mul z y - z = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then Z0 else 26 * Z0
+mul y 0 - y = 0
+add y w - y = i8
+add y 15 - y = i18 + 15
+mul y x - y =  if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then i18  + 15 else 0
+add z y - z = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then Z0 + (i18 + 15) else 26 * Z0
+inp w - w = i9
+mul x 0 - x = 0
+add x z - x = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then Z0 + (i18 + 15) else 26 * Z0
+mod x 26 - x = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then Z0 + (i18 + 15) mod 26 else 0
+div z 1 - z = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then Z0 + (i18 + 15) else 26 * Z0
+add x 11 - x = something positive + 11
+eql x w - x = 0
+eql x 0 - x = 1
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = 25
+add y 1 - y = 26
+mul z y - z = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then 26 * (Z0 + (i18 + 15)) else 26 * 26 * Z0
+mul y 0 - y = 0
+add y w - y = i9
+add y 10 - y = i9 + 10
+mul y x - y = i9 + 10
+add z y - z = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then 26 * (Z0 + (i18 + 15)) + (i9 + 10) else 26 * 26 * Z0 + (i9 + 10)
+inp w - w = i10
+mul x 0 - x = 0
+add x z - x = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then 26 * (Z0 + (i18 + 15)) + (i9 + 10) else 26 * 26 * Z0 + (i9 + 10)
+mod x 26 - x = i9 + 10
+div z 26 - z = if (i16 + 1 == i7 && i5 - 1 == i8) || i7 - 5 == i8 then Z0 + (i18 + 15) else 26 * Z0 <=== Z1
+add x -15 - x = i9 - 5
+eql x w = if i9 - 5 == i10 then 0 else 1
+eql x 0 = if i9 - 5 == i10 then 1 else 0
+mul y 0 - y = 0
+add y 25 - y = 25
+mul y x - y = if i9 - 5 == i10 then 25 else 0
+add y 1 - y = if i9 - 5 == i10 then 26 else 1
+mul z y - z = if i9 - 5 == i10 then 26 * Z1 else Z1
+mul y 0 - y = 0
+add y w - y = i10
+add y 2 - y = i10 + 2
+mul y x - if i9 - 5 == i10 then i10 + 2 else 0
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 10
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 0
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 0
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -4
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 15
+mul y x
+add z y
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x 0
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 15
+mul y x
+add z y

@@ -46,8 +46,8 @@ main = do
 --  printDay21
 --  printDay22
 --  printDay23
---  printDay24
-  printDay25
+  printDay24
+--  printDay25
 
 printDay1 :: IO ()
 printDay1 = printDay "Day 1" day1a day1b
